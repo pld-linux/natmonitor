@@ -10,7 +10,6 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-noc99.patch
 URL:		http://natmonitor.sourceforge.net/
-BuildRequires:	fontconfig
 BuildRequires:	gtk+2-devel
 BuildRequires:	libpcap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
