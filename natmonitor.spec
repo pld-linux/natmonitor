@@ -5,7 +5,7 @@ Version:	0.9
 Release:	1
 License:	GPL
 Group:		Networking
-Source0:	%{name}-%{version}.tgz
+Source0:	http://dl.sf.net/%{name}/%{name}-%{version}.tgz
 Source1:	%{name}.desktop
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel
