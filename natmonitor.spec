@@ -2,7 +2,7 @@ Summary:	This utility monitor hosts bandwidth usage in your home lan
 Summary(pl):	Narzêdzie monitoruj±ce u¿ycie szeroko¶ci pasma w sieci lokalnej
 Name:		natmonitor
 Version:	0.9
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
@@ -36,14 +36,14 @@ wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags} -L/usr/lib"
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir} \
 	$RPM_BUILD_ROOT%{_bindir} \
 	$RPM_BUILD_ROOT%{_pixmapsdir} \
-	$RPM_BUILD_ROOT%{_applnkdir}/Network/Misc
+	$RPM_BUILD_ROOT%{_desktopdir}
 install natmonitor $RPM_BUILD_ROOT%{_bindir}
 install natmonitor.conf $RPM_BUILD_ROOT%{_sysconfdir}
 #for i in 16x16 32x32 36x36 48x48 64x64; do
@@ -51,7 +51,7 @@ install natmonitor.conf $RPM_BUILD_ROOT%{_sysconfdir}
 #	install icons/%{name}$i.png $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/$i/apps/%{name}.png
 #done
 install icons/%{name}48x48.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Network/Misc
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,4 +62,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %attr(644,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}.conf
 %{_pixmapsdir}/%{name}.png
-%{_applnkdir}/Network/Misc/%{name}.desktop
+%{_desktopdir}/%{name}.desktop
