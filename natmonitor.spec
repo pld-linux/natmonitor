@@ -10,6 +10,7 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-noc99.patch
 URL:		http://natmonitor.sourceforge.net/
+BuildRequires:	fontconfig
 BuildRequires:	gtk+2-devel
 BuildRequires:	libpcap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -35,7 +36,7 @@ wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+	LDFLAGS="%{rpmldflags} -L/usr/lib"
 
 %install
 rm -rf $RPM_BUILD_ROOT
