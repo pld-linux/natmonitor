@@ -6,6 +6,7 @@ Release:	2
 License:	GPL
 Group:		Networking
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
+# Source0-md5:	29fe39398aec37db95b43029ad5d1d39
 Source1:	%{name}.desktop
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-noc99.patch
