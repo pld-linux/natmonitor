@@ -8,9 +8,10 @@ Group:		Networking
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
 # Source0-md5:	22c15163254ec9f9f3e86c27a398d118
 Source1:	%{name}.desktop
-Source2:	natmonitord.init.bz2
-Patch0:		%{name}-make.patch
-Patch1:		%{name}-noc99.patch
+Source2:	natmonitord.init
+Patch0:		natmonitord-datadir.patch
+Patch1:		%{name}-make.patch
+Patch2:		%{name}-noc99.patch
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel
 BuildRequires:	libpcap-devel
@@ -32,18 +33,16 @@ wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 Summary:        The NAT Monitor daemon
 Summary(pl):	Daemon monitora NAT
 Group:          System/Servers
-PreReq:         rpm-helper
 
 %description -n natmonitord
 The NAT Monitor daemon collects data for the natmonitor clients.
 
 %description -n natmonitord -l pl
-Daemon zbierajacy dane dla netmonitora.
+Daemon zbierajacy dane dla natmonitora.
 
 %prep
 %setup -q
-#%patch0 -p1
-#%patch1 -p1
+%patch0 -p0
 
 %build
 %{__make} \
@@ -58,7 +57,9 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir} \
 	$RPM_BUILD_ROOT%{_bindir} \
 	$RPM_BUILD_ROOT%{_sbindir} \
 	$RPM_BUILD_ROOT%{_pixmapsdir} \
-	$RPM_BUILD_ROOT%{_desktopdir}
+	$RPM_BUILD_ROOT%{_desktopdir} \
+	$RPM_BUILD_ROOT/var/lib/natmonitor
+
 install natmonitor natmonitord natmonitorconsole $RPM_BUILD_ROOT%{_bindir}
 install natmonitord $RPM_BUILD_ROOT%{_sbindir}
 install natmonitor.conf natmonitord.conf $RPM_BUILD_ROOT%{_sysconfdir}
@@ -72,20 +73,20 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/natmonitord
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/chkconfig --add netmonitord
-if [ -f /var/lock/subsys/netmonitord ]; then
-        /etc/rc.d/init.d/netmonitord restart >&2
+%post -n natmonitord
+/sbin/chkconfig --add natmonitord
+if [ -f /var/lock/subsys/natmonitord ]; then
+        /etc/rc.d/init.d/natmonitord restart >&2
 else
-        echo "Run \"/etc/rc.d/init.d/netmonitord start\" to start netmonitord daemon." >&2
+        echo "Run \"/etc/rc.d/init.d/natmonitord start\" to start natmonitord daemon." >&2
 fi
 
-%preun
+%preun -n natmonitord
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/netmonitord ]; then
-                /etc/rc.d/init.d/netmonitord stop >&2
+        if [ -f /var/lock/subsys/natmonitord ]; then
+                /etc/rc.d/init.d/natmonitord stop >&2
         fi
-        /sbin/chkconfig --del netmonitord
+        /sbin/chkconfig --del natmonitord
 fi
 
 %files
@@ -102,3 +103,4 @@ fi
 %attr(755,root,root) %{_sbindir}/natmonitord
 %attr(755,root,root) %{_initrddir}/natmonitord
 %attr(644,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/natmonitord.conf
+%attr(755,root,root) %dir /var/lib/natmonitor
