@@ -34,6 +34,8 @@ wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 Summary:	The NAT Monitor daemon
 Summary(pl):	Daemon monitora NAT
 Group:		System/Servers
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 
 %description -n natmonitord
 The NAT Monitor daemon collects data for the natmonitor clients.
