@@ -7,5 +7,6 @@ Icon=natmonitor.png
 Exec=natmonitor
 Terminal=0
 Type=Application
+Categories=Application;Network;
 
 # vi: encoding=utf-8
