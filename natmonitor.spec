@@ -9,6 +9,7 @@ Source0:	http://dl.sf.net/%{name}/%{name}-%{version}.tgz
 Source1:	%{name}.desktop
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel
+BuildRequires:	libpcap-devel
 Requires:	gtk+2
 Requires:	libpcap
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
