@@ -1,0 +1,15 @@
+--- natmonitor/Makefile.orig	Sun Apr 13 05:48:18 2003
++++ natmonitor/Makefile	Tue Apr 22 15:14:20 2003
+@@ -6,10 +6,10 @@
+ 	rm -fr *.o natmonitor
+ 
+ natmonitor: natmonitor.o
+-	gcc natmonitor.o $(GTKLIBS) -lpcap -o natmonitor
++	$(CC) $(LDFLAGS) natmonitor.o $(GTKLIBS) -lpcap -o natmonitor
+ 
+ natmonitor.o: natmonitor.c
+-	gcc -c natmonitor.c $(GTKCFLAGS) -pipe -Wall
++	$(CC) $(CFLAGS) -c natmonitor.c $(GTKCFLAGS) -pipe -Wall
+ 
+ 
+ 
