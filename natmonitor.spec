@@ -1,12 +1,12 @@
 Summary:	This utility monitor hosts bandwidth usage in your home lan
 Summary(pl):	Narzêdzie monitoruj±ce u¿ycie szeroko¶ci pasma w sieci lokalnej
 Name:		natmonitor
-Version:	0.9
-Release:	2
+Version:	2.4
+Release:	0.1
 License:	GPL
 Group:		Networking
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
-# Source0-md5:	29fe39398aec37db95b43029ad5d1d39
+# Source0-md5:	22c15163254ec9f9f3e86c27a398d118
 Source1:	%{name}.desktop
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-noc99.patch
@@ -28,9 +28,10 @@ innym kolorem dla ka¿dego hosta z sieci lokalnej. Automatycznie
 wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1
-%patch1 -p1
+#%setup -q -n %{name}
+%setup -q
+#%patch0 -p1
+#%patch1 -p1
 
 %build
 %{__make} \
