@@ -1,5 +1,5 @@
 Summary:	This utility monitor hosts bandwidth usage in your home lan
-Summary(pl):	Narzêdzie to monitoruje u¿ycie szeroko¶ci pasma w sieci lokalnej
+Summary(pl):	Narzêdzie monitoruj±ce u¿ycie szeroko¶ci pasma w sieci lokalnej
 Name:		natmonitor
 Version:	0.9
 Release:	1
@@ -21,6 +21,10 @@ with a different color for every LAN host. It autodetects hosts and
 has a nice summary statistic.
 
 %description -l pl
+NAT Monitor to graficzny monitor ¶ledz±cy wykorzystanie pasma przez
+hosty w sieci lokalnej za linuksowym NAT-em. NAT Monitor rysuje wykres
+innym kolorem dla ka¿dego hosta z sieci lokalnej. Automatycznie
+wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 
 %prep
 %setup -q -n %{name}
