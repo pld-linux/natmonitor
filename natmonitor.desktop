@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=natmonitor
+Name[pl]=natmonitor
+Comment=Monitor hosts bandwidth usage
+Comment[pl]=Monitor u¿ycia przepustowosci ³±cza
+Icon=natmonitor.png
+Exec=natmonitor
+Terminal=0
+Type=Application
+
+# vi: encoding=utf-8
