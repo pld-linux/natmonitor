@@ -1,0 +1,42 @@
+--- natmonitor.c.org	2004-04-28 18:16:10.000000000 +0000
++++ natmonitor.c	2004-06-06 13:49:43.964974072 +0000
+@@ -75,7 +75,7 @@
+ /* other */
+ /* OVERRIDECOLOR */;
+ /* SETUP END */
+-#define MAXHOSTS 10 /* remember there are only 10 color defined */
++#define MAXHOSTS 100 /* remember there are only 10 color defined */
+ char CONF[256];
+ int BASEDOWNLOAD;
+ int BASEUPLOAD;
+--- natmonitorconsole.c.org	2004-04-28 15:27:40.000000000 +0000
++++ natmonitorconsole.c	2004-06-06 13:49:30.977948400 +0000
+@@ -39,7 +39,7 @@
+ int HOURLY=0;
+ int VERBOSE=0;
+ #define BUFFERSIZE 1600
+-#define MAXHOSTS 10
++#define MAXHOSTS 100
+ 
+ uint32_t host[MAXHOSTS];
+ uint64_t *in[MAXHOSTS];
+--- natmonitord.c.org	2004-04-28 18:19:39.000000000 +0000
++++ natmonitord.c	2004-06-06 13:49:21.720355768 +0000
+@@ -45,7 +45,7 @@
+ #define MINSBUFFSIZE 720 /* collect 12 minutes of data every second*/
+ #define HOURSSAMPLESIZE 60 /* HOURS BUFFER contain one sample every minute */
+ #define HOURSBUFFSIZE 720 /* so HOURS BUFFER contain 12 hours of data */
+-#define MAXHOSTS 10
++#define MAXHOSTS 100
+ #define MAXSIZE 256
+ #define MOD(a,b) ((a)%(b))
+ #define MIN(a,b) ((a)>(b)?(b):(a))
+@@ -62,7 +62,7 @@
+ #define BUFFERSIZE 1600
+ #define MAXLISTENERS 10
+ #define F_SETSIG       10
+-#define LOGFILE "/var/natmonitor/natmonitor.dat"
++#define LOGFILE "/var/lib/natmonitor/natmonitor.dat"
+ #define CONF "/etc/natmonitord.conf"
+ 
+ struct listeners{
