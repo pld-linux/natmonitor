@@ -5,13 +5,13 @@ Version:	0.9
 Release:	1
 License:	GPL
 Group:		Networking
-Source0:	http://dl.sf.net/%{name}/%{name}-%{version}.tgz
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
 Source1:	%{name}.desktop
+Patch0:		%{name}-make.patch
+Patch1:		%{name}-noc99.patch
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel
 BuildRequires:	libpcap-devel
-Requires:	gtk+2
-Requires:	libpcap
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,9 +28,14 @@ wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1
+%patch1 -p1
 
 %build
-%{__make}
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags}" \
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
