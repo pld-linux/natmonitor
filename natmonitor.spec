@@ -15,6 +15,7 @@ Patch2:		%{name}-noc99.patch
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libpcap-devel
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
