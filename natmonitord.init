@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+# natmonitord	This shell script takes care of starting and stopping natmonitord.
+#
+# chkconfig: 2345 65 35
+# description: natmonitord -  The NAT Monitor \
+# daemon collects data for the natmonitor clients.
+# probe: false
+# processname: natmonitord
+# pidfile: /var/run/natmonitor/natmonitord.pid
+# config: /etc/natmonitord.conf
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "${NETWORKING}" = "no" ] && exit 0
+
+[ -f /usr/sbin/natmonitord ] || exit 0
+
+[ -f /etc/natmonitord.conf ] || exit 0
+
+# See how we were called.
+case "$1" in
+start)
+	echo -n "Starting natmonitord: "
+	/usr/sbin/natmonitord & >/dev/null 2>/dev/null 
+	echo_success
+	echo
+	touch /var/lock/subsys/natmonitord
+	;;
+stop)
+	echo -n "Stopping natmonitord: "
+	killproc natmonitord
+	echo
+	rm -f /var/lock/subsys/natmonitord
+	;;
+status)
+	status natmonitord
+	;;
+restart|reload)
+	$0 stop
+	$0 start
+	;;
+condrestart)
+	[ -f /var/lock/subsys/natmonitord ] && restart
+	;;
+  *)
+	echo "Usage: natmonitord {start|stop|status|restart|condrestart|reload}"
+	exit 1
+esac
+
+exit 0
