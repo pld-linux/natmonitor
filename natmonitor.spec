@@ -13,7 +13,7 @@ Patch0:		natmonitor-complex.patch
 Patch1:		%{name}-make.patch
 Patch2:		%{name}-noc99.patch
 URL:		http://natmonitor.sourceforge.net/
-BuildRequires:	gtk+2-devel
+BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libpcap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -29,16 +29,16 @@ hosty w sieci lokalnej za linuksowym NAT-em. NAT Monitor rysuje wykres
 innym kolorem dla ka¿dego hosta z sieci lokalnej. Automatycznie
 wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 
-%package -n     natmonitord
-Summary:        The NAT Monitor daemon
+%package -n natmonitord
+Summary:	The NAT Monitor daemon
 Summary(pl):	Daemon monitora NAT
-Group:          System/Servers
+Group:		System/Servers
 
 %description -n natmonitord
 The NAT Monitor daemon collects data for the natmonitor clients.
 
 %description -n natmonitord -l pl
-Daemon zbierajacy dane dla natmonitora.
+Daemon zbieraj±cy dane dla natmonitora.
 
 %prep
 %setup -q
@@ -70,6 +70,7 @@ install natmonitor.conf natmonitord.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install icons/%{name}48x48.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/natmonitord
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -94,7 +95,7 @@ fi
 %doc CHANGELOG README BUGS TODO
 %attr(755,root,root) %{_bindir}/natmonitor
 %attr(755,root,root) %{_bindir}/natmonitorconsole
-%attr(644,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}.conf
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}.conf
 %{_pixmapsdir}/%{name}.png
 %{_desktopdir}/%{name}.desktop
 
@@ -102,5 +103,5 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/natmonitord
 %attr(755,root,root) %{_initrddir}/natmonitord
-%attr(644,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/natmonitord.conf
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/natmonitord.conf
 %attr(755,root,root) %dir /var/lib/natmonitor
