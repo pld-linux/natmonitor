@@ -2,7 +2,7 @@ Summary:	This utility monitor hosts bandwidth usage in your home lan
 Summary(pl):	Narzêdzie monitoruj±ce u¿ycie szeroko¶ci pasma w sieci lokalnej
 Name:		natmonitor
 Version:	2.4
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Networking
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
@@ -45,7 +45,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir} \
 	$RPM_BUILD_ROOT%{_bindir} \
 	$RPM_BUILD_ROOT%{_pixmapsdir} \
 	$RPM_BUILD_ROOT%{_desktopdir}
-install natmonitor $RPM_BUILD_ROOT%{_bindir}
+install natmonitor natmonitord natmonitorconsole $RPM_BUILD_ROOT%{_bindir}
 install natmonitor.conf $RPM_BUILD_ROOT%{_sysconfdir}
 #for i in 16x16 32x32 36x36 48x48 64x64; do
 #	install -d $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/$i/apps
