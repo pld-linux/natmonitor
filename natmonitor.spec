@@ -105,6 +105,6 @@ fi
 %files -n natmonitord
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/natmonitord
-%attr(755,root,root) %{_initrddir}/natmonitord
+%attr(754,root,root) %{_initrddir}/natmonitord
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/natmonitord.conf
 %attr(755,root,root) %dir /var/lib/natmonitor
