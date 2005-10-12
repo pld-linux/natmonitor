@@ -15,6 +15,8 @@ URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libpcap-devel
 BuildRequires:	pkgconfig
+BuildRequires:	sed >= 4.0
+Requires:	rpmbuild(macros) >= 1.202
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,6 +50,7 @@ Daemon zbieraj±cy dane dla natmonitora.
 %patch1 -p1
 
 %build
+%{__sed} -i 's,USER.*,USER natmonitor,' natmonitord.conf
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
@@ -70,8 +73,17 @@ install icons/%{name}48x48.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/natmonitord
 
+cat > $RPM_BUILD_ROOT/var/lib/natmonitor/natmonitor.dat <<EOF
+MINS SAMPLES 0
+HOURS SAMPLES 0
+EOF
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%pre -n natmonitord
+%groupadd -g 159 natmonitor
+%useradd -u 159 -d %{_var}/lib/natmonitor -c "NAT Monitor" -g natmonitor natmonitor
 
 %post -n natmonitord
 /sbin/chkconfig --add natmonitord
@@ -89,6 +101,12 @@ if [ "$1" = "0" ]; then
         /sbin/chkconfig --del natmonitord
 fi
 
+%postun -n natmonitord
+if [ "$1" = "0" ]; then
+	%userremove natmonitor
+	%groupremove natmonitor
+fi
+
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG README BUGS TODO
@@ -103,4 +121,5 @@ fi
 %attr(755,root,root) %{_sbindir}/natmonitord
 %attr(754,root,root) %{_initrddir}/natmonitord
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/natmonitord.conf
-%attr(750,nobody,nobody) /var/lib/natmonitor
+%attr(750,natmonitor,natmonitor) %dir /var/lib/natmonitor
+%attr(644,natmonitor,natmonitor) %ghost /var/lib/natmonitor/natmonitor.dat
