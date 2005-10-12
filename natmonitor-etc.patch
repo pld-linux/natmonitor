@@ -1,0 +1,100 @@
+diff -U 3 -H -d -r -N -- natmonitor-2.4.orig/natmonitor.c natmonitor-2.4/natmonitor.c
+--- natmonitor-2.4.orig/natmonitor.c	2005-10-12 17:37:14.000000000 +0200
++++ natmonitor-2.4/natmonitor.c	2005-10-12 17:38:00.000000000 +0200
+@@ -76,6 +76,7 @@
+ /* OVERRIDECOLOR */;
+ /* SETUP END */
+ #define MAXHOSTS 100 /* remember there are only 10 color defined */
++#define CONFNAME "natmonitor.conf"
+ char CONF[256];
+ int BASEDOWNLOAD;
+ int BASEUPLOAD;
+@@ -613,10 +614,21 @@
+ 	int i;
+ 	char string[256];
+ 	char cmd[256];
++	char *etc_dir;
+ 
+ 	if(! (file=fopen(CONF,"r")) ) {
+-		fprintf(stderr,"Error opening %s - using default settings\n",CONF);
+-	}	else {
++		if ((etc_dir = getenv("HOME_ETC")) != NULL) {
++			sprintf(CONF,"%s/%s", etc_dir, CONFNAME);
++			file=fopen(CONF,"r");
++		}
++		if (file == 0) {
++			sprintf(CONF,"/etc/%s", CONFNAME);
++			file=fopen(CONF,"r");
++		}
++	}
++	if (file == 0) {
++		fprintf(stderr,"Error opening %s - using default settings\n", CONFNAME);
++	} else {
+ 		while(!feof(file)){
+ 			fgets(string,255,file);
+ 			if((string[0]!='#') &&(string[0]!=';')&&(string[0]!=0x0a)&&(string[0]!='\t')&&(string[0]!=' ')) {	
+@@ -725,7 +737,7 @@
+ 		fprintf(stderr,"Error getting current user home directory\n");
+ 		exit(-1);
+ 	}
+-	sprintf(CONF,"%s/.natmonitor.conf",passstruct->pw_dir);
++	sprintf(CONF,"%s/.%s",passstruct->pw_dir, CONFNAME);
+ 	LoadSettings();
+ 	gtk_init (&argc, &argv);
+ 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+diff -U 3 -H -d -r -N -- natmonitor-2.4.orig/natmonitorconsole.c natmonitor-2.4/natmonitorconsole.c
+--- natmonitor-2.4.orig/natmonitorconsole.c	2005-10-12 17:37:14.000000000 +0200
++++ natmonitor-2.4/natmonitorconsole.c	2005-10-12 17:40:13.000000000 +0200
+@@ -40,11 +40,44 @@
+ int VERBOSE=0;
+ #define BUFFERSIZE 1600
+ #define MAXHOSTS 100
++#define CONFNAME "natmonitor.conf"
+ 
+ uint32_t host[MAXHOSTS];
+ uint64_t *in[MAXHOSTS];
+ uint64_t *out[MAXHOSTS];
+ 
++void LoadSettings(){
++	FILE *file;
++	char string[256];
++	char cmd[256];
++	char CONF[256];
++	char *etc_dir;
++	
++	sprintf(CONF,"%s/.%s", getenv("HOME"), CONFNAME);
++	if(! (file=fopen(CONF,"r")) ) {
++		if ((etc_dir = getenv("HOME_ETC")) != NULL) {
++			sprintf(CONF,"%s/%s", etc_dir, CONFNAME);
++			file=fopen(CONF,"r");
++		}
++		if (file == 0) {
++			sprintf(CONF,"/etc/%s", CONFNAME);
++			file=fopen(CONF,"r");
++		}
++	}
++	if (file != 0) {
++		while(!feof(file)){
++			fgets(string,255,file);
++			if((string[0]!='#') &&(string[0]!=';')&&(string[0]!=0x0a)&&(string[0]!='\t')&&(string[0]!=' ')) {
++				sscanf(string,"%s",cmd);
++				if(!strcmp(cmd,"DAEMONIP")){sscanf(string,"%*s %s",DAEMONIP);}
++				if(!strcmp(cmd,"DAEMONPORT")){sscanf(string,"%*s %d",&DAEMONPORT);}
++			}
++		}
++		fclose(file);
++	}
++}
++
++
+ int main (int argc, char *argv[]){
+ 	int socket_fd,samples,s,i,t=-1;
+ 	struct sockaddr_in saddr;
+@@ -55,6 +88,7 @@
+ 	char string[256];
+ 	int cmd;
+ 	int howmanysamples=MEAN;
++	LoadSettings();
+ 	while((cmd=getopt(argc, argv,"vHhs:i:p:"))!=-1){
+ 		switch(cmd){
+ 			case 'h':
