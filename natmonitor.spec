@@ -2,16 +2,15 @@ Summary:	This utility monitor hosts bandwidth usage in your home lan
 Summary(pl):	Narzêdzie monitoruj±ce u¿ycie szeroko¶ci pasma w sieci lokalnej
 Name:		natmonitor
 Version:	2.4
-Release:	0.5
+Release:	1
 License:	GPL
 Group:		Networking
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
 # Source0-md5:	22c15163254ec9f9f3e86c27a398d118
 Source1:	%{name}.desktop
 Source2:	natmonitord.init
-Patch0:		natmonitor-complex.patch
-Patch1:		%{name}-make.patch
-Patch2:		%{name}-noc99.patch
+Patch0:		%{name}-complex.patch
+Patch1:		%{name}-etc.patch
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libpcap-devel
@@ -46,6 +45,7 @@ Daemon zbieraj±cy dane dla natmonitora.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p1
 
 %build
 %{__make} \
@@ -66,10 +66,6 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir} \
 install natmonitor natmonitord natmonitorconsole $RPM_BUILD_ROOT%{_bindir}
 install natmonitord $RPM_BUILD_ROOT%{_sbindir}
 install natmonitor.conf natmonitord.conf $RPM_BUILD_ROOT%{_sysconfdir}
-#for i in 16x16 32x32 36x36 48x48 64x64; do
-#	install -d $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/$i/apps
-#	install icons/%{name}$i.png $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/$i/apps/%{name}.png
-#done
 install icons/%{name}48x48.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/natmonitord
@@ -107,4 +103,4 @@ fi
 %attr(755,root,root) %{_sbindir}/natmonitord
 %attr(754,root,root) %{_initrddir}/natmonitord
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/natmonitord.conf
-%attr(755,root,root) %dir /var/lib/natmonitor
+%attr(750,nobody,nobody) /var/lib/natmonitor
