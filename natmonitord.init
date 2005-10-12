@@ -7,7 +7,6 @@
 #		natmonitor clients.
 # probe:	false
 # processname:	natmonitord
-# pidfile:	/var/run/natmonitor/natmonitord.pid
 # config:	/etc/natmonitord.conf
 
 # Source function library.
@@ -33,17 +32,24 @@ fi
 # See how we were called.
 case "$1" in
   start)
-	msg_starting natmonitord
-	/usr/sbin/natmonitord & >/dev/null 2>/dev/null 
-	echo_success
-	echo
-	touch /var/lock/subsys/natmonitord
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/natmonitord ]; then
+		msg_starting natmonitord
+		busy
+		/usr/sbin/natmonitord >/dev/null 2>&1 &
+		[ "$?" -eq 0 ] && touch /var/lock/subsys/natmonitord; ok || fail
+	else
+		msg_already_running natmonitord
+	fi
 	;;
   stop)
-	msg_stopping natmonitord
-	killproc natmonitord
-	echo
-	rm -f /var/lock/subsys/natmonitord
+	if [ -f /var/lock/subsys/natmonitord ]; then
+		msg_stopping natmonitord
+		killproc natmonitord
+		rm -f /var/lock/subsys/natmonitord >/dev/null 2>&1
+	else
+		msg_not_running natmonitord
+	fi
 	;;
   status)
 	status natmonitord
