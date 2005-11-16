@@ -36,7 +36,15 @@ Summary:	The NAT Monitor daemon
 Summary(pl):	Daemon monitora NAT
 Group:		System/Servers
 PreReq:		rc-scripts
+Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires(post,preun):	/sbin/chkconfig
+Provides:	group(natmonitor)
+Provides:	user(natmonitor)
 
 %description -n natmonitord
 The NAT Monitor daemon collects data for the natmonitor clients.
