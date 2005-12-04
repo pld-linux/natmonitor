@@ -5,10 +5,10 @@ Version:	2.4
 Release:	1
 License:	GPL
 Group:		Networking
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tgz
+Source0:	http://dl.sourceforge.net/natmonitor/%{name}-%{version}.tgz
 # Source0-md5:	22c15163254ec9f9f3e86c27a398d118
 Source1:	%{name}.desktop
-Source2:	natmonitord.init
+Source2:	%{name}d.init
 Patch0:		%{name}-complex.patch
 Patch1:		%{name}-etc.patch
 URL:		http://natmonitor.sourceforge.net/
@@ -34,15 +34,15 @@ wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
 %package -n natmonitord
 Summary:	The NAT Monitor daemon
 Summary(pl):	Daemon monitora NAT
-Group:		System/Servers
-PreReq:		rc-scripts
+Group:		Daemons
+Requires:	rc-scripts
+Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/groupdel
-Requires(postun):	/usr/sbin/userdel
-Requires(post,preun):	/sbin/chkconfig
 Provides:	group(natmonitor)
 Provides:	user(natmonitor)
 
@@ -120,7 +120,7 @@ fi
 %doc CHANGELOG README BUGS TODO
 %attr(755,root,root) %{_bindir}/natmonitor
 %attr(755,root,root) %{_bindir}/natmonitorconsole
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.conf
 %{_pixmapsdir}/%{name}.png
 %{_desktopdir}/%{name}.desktop
 
@@ -128,6 +128,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/natmonitord
 %attr(754,root,root) %{_initrddir}/natmonitord
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/natmonitord.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/natmonitord.conf
 %attr(750,natmonitor,natmonitor) %dir /var/lib/natmonitor
 %attr(644,natmonitor,natmonitor) %ghost /var/lib/natmonitor/natmonitor.dat
