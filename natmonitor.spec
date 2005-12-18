@@ -74,7 +74,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir} \
 	$RPM_BUILD_ROOT%{_desktopdir} \
 	$RPM_BUILD_ROOT/var/lib/natmonitor
 
-install natmonitor natmonitord natmonitorconsole $RPM_BUILD_ROOT%{_bindir}
+install natmonitor natmonitorconsole $RPM_BUILD_ROOT%{_bindir}
 install natmonitord $RPM_BUILD_ROOT%{_sbindir}
 install natmonitor.conf natmonitord.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install icons/%{name}48x48.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
