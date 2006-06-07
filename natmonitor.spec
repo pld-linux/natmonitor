@@ -2,7 +2,7 @@ Summary:	This utility monitor hosts bandwidth usage in your home lan
 Summary(pl):	Narzêdzie monitoruj±ce u¿ycie szeroko¶ci pasma w sieci lokalnej
 Name:		natmonitor
 Version:	2.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking
 Source0:	http://dl.sourceforge.net/natmonitor/%{name}-%{version}.tgz
@@ -11,6 +11,7 @@ Source1:	%{name}.desktop
 Source2:	%{name}d.init
 Patch0:		%{name}-complex.patch
 Patch1:		%{name}-etc.patch
+Patch2:		%{name}-border_fix.patch
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libpcap-devel
@@ -56,6 +57,7 @@ Daemon zbieraj±cy dane dla natmonitora.
 %setup -q
 %patch0 -p0
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__sed} -i 's,USER.*,USER natmonitor,' natmonitord.conf
