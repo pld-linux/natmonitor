@@ -16,8 +16,8 @@ URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libpcap-devel
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	sed >= 4.0
-Requires:	rpmbuild(macros) >= 1.202
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
