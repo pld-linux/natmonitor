@@ -1,0 +1,14 @@
+--- natmonitor-2.4/natmonitor.c.orig	2007-01-08 13:55:33.000000000 +0100
++++ natmonitor-2.4/natmonitor.c	2007-01-08 14:02:46.100895448 +0100
+@@ -737,7 +737,10 @@
+ 		fprintf(stderr,"Error getting current user home directory\n");
+ 		exit(-1);
+ 	}
+-	sprintf(CONF,"%s/.%s",passstruct->pw_dir, CONFNAME);
++	if (argc > 1)
++		sprintf(CONF, "%s", argv[1]);
++	else
++		sprintf(CONF,"%s/.%s",passstruct->pw_dir, CONFNAME);
+ 	LoadSettings();
+ 	gtk_init (&argc, &argv);
+ 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
