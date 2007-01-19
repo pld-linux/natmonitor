@@ -12,6 +12,7 @@ Source2:	%{name}d.init
 Patch0:		%{name}-complex.patch
 Patch1:		%{name}-etc.patch
 Patch2:		%{name}-border_fix.patch
+Patch3:		%{name}-command_line_conf.patch
 URL:		http://natmonitor.sourceforge.net/
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libpcap-devel
@@ -58,6 +59,7 @@ Daemon zbieraj±cy dane dla natmonitora.
 %patch0 -p0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__sed} -i 's,USER.*,USER natmonitor,' natmonitord.conf
