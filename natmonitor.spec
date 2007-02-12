@@ -1,5 +1,5 @@
 Summary:	This utility monitor hosts bandwidth usage in your home lan
-Summary(pl):	Narzêdzie monitoruj±ce u¿ycie szeroko¶ci pasma w sieci lokalnej
+Summary(pl.UTF-8):   NarzÄ™dzie monitorujÄ…ce uÅ¼ycie szerokoÅ›ci pasma w sieci lokalnej
 Name:		natmonitor
 Version:	2.4
 Release:	2
@@ -27,15 +27,15 @@ usage in a Linux-NAT local network. NAT Monitor draws a stacked graph
 with a different color for every LAN host. It autodetects hosts and
 has a nice summary statistic.
 
-%description -l pl
-NAT Monitor to graficzny monitor ¶ledz±cy wykorzystanie pasma przez
+%description -l pl.UTF-8
+NAT Monitor to graficzny monitor Å›ledzÄ…cy wykorzystanie pasma przez
 hosty w sieci lokalnej za linuksowym NAT-em. NAT Monitor rysuje wykres
-innym kolorem dla ka¿dego hosta z sieci lokalnej. Automatycznie
-wykrywa hosty i ma ³adne statystyki podsumowuj±ce.
+innym kolorem dla kaÅ¼dego hosta z sieci lokalnej. Automatycznie
+wykrywa hosty i ma Å‚adne statystyki podsumowujÄ…ce.
 
 %package -n natmonitord
 Summary:	The NAT Monitor daemon
-Summary(pl):	Daemon monitora NAT
+Summary(pl.UTF-8):   Daemon monitora NAT
 Group:		Daemons
 Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
@@ -51,8 +51,8 @@ Provides:	user(natmonitor)
 %description -n natmonitord
 The NAT Monitor daemon collects data for the natmonitor clients.
 
-%description -n natmonitord -l pl
-Daemon zbieraj±cy dane dla natmonitora.
+%description -n natmonitord -l pl.UTF-8
+Daemon zbierajÄ…cy dane dla natmonitora.
 
 %prep
 %setup -q
