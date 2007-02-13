@@ -1,5 +1,5 @@
 Summary:	This utility monitor hosts bandwidth usage in your home lan
-Summary(pl.UTF-8):   Narzędzie monitorujące użycie szerokości pasma w sieci lokalnej
+Summary(pl.UTF-8):	Narzędzie monitorujące użycie szerokości pasma w sieci lokalnej
 Name:		natmonitor
 Version:	2.4
 Release:	2
@@ -35,7 +35,7 @@ wykrywa hosty i ma ładne statystyki podsumowujące.
 
 %package -n natmonitord
 Summary:	The NAT Monitor daemon
-Summary(pl.UTF-8):   Daemon monitora NAT
+Summary(pl.UTF-8):	Daemon monitora NAT
 Group:		Daemons
 Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
