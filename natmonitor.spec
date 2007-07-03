@@ -99,17 +99,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post -n natmonitord
 /sbin/chkconfig --add natmonitord
-if [ -f /var/lock/subsys/natmonitord ]; then
-	/etc/rc.d/init.d/natmonitord restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/natmonitord start\" to start natmonitord daemon." >&2
-fi
+%service natmonitord restart
 
 %preun -n natmonitord
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/natmonitord ]; then
-		/etc/rc.d/init.d/natmonitord stop >&2
-	fi
+	%service natmonitord stop
 	/sbin/chkconfig --del natmonitord
 fi
 
