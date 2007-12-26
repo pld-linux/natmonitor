@@ -1,10 +1,9 @@
 [Desktop Entry]
 Name=natmonitor
-Encoding=UTF-8
 Name[pl]=natmonitor
 Comment=Monitor hosts bandwidth usage
 Comment[pl]=Monitor użycia przepustowości łącza
-Icon=natmonitor.png
+Icon=natmonitor
 Exec=natmonitor
 Terminal=false
 Type=Application
