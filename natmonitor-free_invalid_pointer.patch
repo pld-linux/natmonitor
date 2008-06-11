@@ -1,0 +1,20 @@
+--- natmonitor-2.4/natmonitor.c.orig	2008-06-11 09:58:15.000000000 +0200
++++ natmonitor-2.4/natmonitor.c	2008-06-11 09:59:07.397589249 +0200
+@@ -443,12 +443,12 @@
+ void EraseBuffer(){
+ 	int i;
+ 	for(i=0;i<hostnumber;i++){
+-		free(out);
+-		free(in);
+-		hostnumber=0;
+-		timecounter=0;
+-		t=0;
++		free(out[i]);
++		free(in[i]);
+ 	}
++	hostnumber=0;
++	timecounter=0;
++	t=0;
+ }
+ 
+ void EraseGraph(){
