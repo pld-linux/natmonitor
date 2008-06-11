@@ -1,0 +1,27 @@
+--- natmonitor-2.4/natmonitor.c.orig	2008-06-11 00:01:53.000000000 +0200
++++ natmonitor-2.4/natmonitor.c	2008-06-11 01:34:40.228264697 +0200
+@@ -688,6 +688,7 @@
+ 
+ int main (int argc, char *argv[]){
+ 	struct sockaddr_in saddr;
++	struct hostent *he;
+ 	char string[256];
+ 	int i;
+ 	struct passwd *passstruct;
+@@ -790,9 +791,13 @@
+ 		perror("socket");
+ 		exit(-1);
+ 	}
+-	if(!inet_aton(DAEMONIP, &saddr.sin_addr)){
+-		fprintf(stderr,"Error: %s not a valid ip address - aborting\n",DAEMONIP);
+-		exit(-1);
++	if ((he = gethostbyname(DAEMONIP)) != NULL) {
++		saddr.sin_addr = *((struct in_addr *)he->h_addr);
++	} else {
++		if(!inet_aton(DAEMONIP, &saddr.sin_addr)){
++			fprintf(stderr,"Error: %s not a valid ip address - aborting\n",DAEMONIP);
++			exit(-1);
++		}
+ 	}
+ 	saddr.sin_port=htons(DAEMONPORT);
+ 	saddr.sin_family=AF_INET;
