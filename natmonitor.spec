@@ -75,7 +75,7 @@ Daemon zbierający dane dla natmonitora.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir} \
-	$RPM_BUILD_ROOT%{_initrddir} \
+	$RPM_BUILD_ROOT/etc/rc.d/init.d \
 	$RPM_BUILD_ROOT%{_bindir} \
 	$RPM_BUILD_ROOT%{_sbindir} \
 	$RPM_BUILD_ROOT%{_pixmapsdir} \
@@ -87,7 +87,7 @@ install natmonitord $RPM_BUILD_ROOT%{_sbindir}
 install natmonitor.conf natmonitord.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install icons/%{name}48x48.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/natmonitord
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/natmonitord
 
 cat > $RPM_BUILD_ROOT/var/lib/natmonitor/natmonitor.dat <<EOF
 MINS SAMPLES 0
@@ -129,7 +129,7 @@ fi
 %files -n natmonitord
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/natmonitord
-%attr(754,root,root) %{_initrddir}/natmonitord
+%attr(754,root,root) /etc/rc.d/init.d/natmonitord
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/natmonitord.conf
 %attr(750,natmonitor,natmonitor) %dir /var/lib/natmonitor
 %attr(644,natmonitor,natmonitor) %ghost /var/lib/natmonitor/natmonitor.dat
